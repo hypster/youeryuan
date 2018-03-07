@@ -5,10 +5,13 @@
     <form action="">
       <label for="">手机号：<input v-model="mobile" type="text"></label>
       <label for="">密码：<input v-model='pass' type="password"></label>
-      <label class="verificationCode" for="">验证码：<input type="text" v-model='verificationCode'><button @click.prevent type='button' class="getCode">刷新</button></label>
+      <label class="verificationCode" for="">验证码：<input type="text" v-model='verificationCode'>
+      <img class="authCode" :src="authCode" alt="">
+      <button @click.prevent type='button' class="getCode">刷新</button>
+      </label>
       <div class="forgot">
         <div class="remember">
-          <input type="checkbox"><span>记住密码</span>
+          <input v-model='remember' type="checkbox"><span>记住密码</span>
         </div>
         <router-link :to="{name: 'forgot'}">忘记密码</router-link><router-link :to="{name: 'register'}" class="register" href="">立即注册</router-link>
       </div>
@@ -18,6 +21,7 @@
 </template>
 <script>
 import regExp from '@/lib/regExp'
+let {setCookie, getCookie} = require('@/lib/util')
 export default {
   name: 'loginForm',
   data () {
@@ -27,40 +31,58 @@ export default {
       confirmPass: '',
       verificationCode: '',
       textCode: '',
-      errors: []
+      errors: [],
+      authCode: '',
+      remember: false
     }
   },
   methods: {
     register () {
-      if (!this.mobile.trim() == '') {
-        this.errors.push('手机号码必填');
-      }
-      else if(!regExp.mobile.test(this.mobile)) {
-        this.errors.push('请输入正确格式的手机号码');
-      } 
-      if (!regExp.pass.test(this.pass)) {
-        this.errors.push('请输入8-20位密码，且必须包含一个小写字母、一个大写字母和一个数字');
-      } 
-      if (this.confirmPass != this.pass) {
-        this.errors.push('两次输入密码不一致');
-      }
-      if (this.textCode.trim() == '') {
-        this.errors.push('请输入短信验证码');
-      }
-      if (!this.errors.length) {
-        console.log('校验通过');
-        // this.$http.post('/familyUser/register', {
-        //   ename: ,
-        //   ciphertext: 
-        //   mobile,
-        //   realname
-        // }).then(res => {
-        //   console.log(res);
-        // })
-      } else {
-        console.log(this.errors)
-      }
+        if (this.mobile.trim() == '') {
+          this.errors.push('请输入手机号码');
+        }
+        else if(!regExp.mobile.test(this.mobile)) {
+          this.errors.push('请输入正确格式的手机号码');
+        } 
+        if (!regExp.pass.test(this.pass)) {
+          this.errors.push('请输入准确格式的密码，长度8-20位，且包含一个小写字母、一个大写字母和一个数字');
+        } 
+        // debugger
+        if (this.verificationCode.trim() == '') {
+          this.errors.push('请输入短信验证码');
+        } else if (!regExp.smsCode.test(this.verificationCode)) {
+          this.errors.push('验证码必须为4位');
+        }
+        if (!this.errors.length) {
+          console.log('校验通过');
+          if (this.remember) {
+            setCookie('mobile', this.mobile, 7);
+          } else {
+            setCookie('mobile', '', -1);
+          }
+          // this.$http.post('/familyUser/register', {
+          //   ename: ,
+          //   ciphertext: 
+          //   mobile,
+          //   realname
+          // }).then(res => {
+          //   console.log(res);
+          // })
+        } else {
+          this.$emit('openModal', this.errors.slice());
+          this.errors = [];
+        }
+    },
+    getAuthCode() {
+      this.authCode = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521013717&di=4a6d21db1c502b6440e4e5e320e6b991&imgtype=jpg&er=1&src=http%3A%2F%2Fs4.sinaimg.cn%2Fmw690%2F003bsgbmgy6R6efoOr1c3'
+      // this.$http.get('/public/authCode').then(r => {
+      //   // this.authCode = r.url
+      // })
     }
+  },
+  mounted() {
+    this.mobile = getCookie('mobile');
+    this.getAuthCode(); 
   }
 }  
 </script>
@@ -78,5 +100,18 @@ export default {
     .register
       color #5e9c10
       margin-left 10px
+  .authCode
+    width 60px
+    position absolute
+    left 100%
+    margin-left 20px
+  .verificationCode
+    width 200px
+    position relative
+  .getCode
+    position absolute
+    right 0
+    width 50px
+
 </style>
 
