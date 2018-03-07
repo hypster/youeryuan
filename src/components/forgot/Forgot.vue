@@ -8,7 +8,6 @@
       <label for="">确认密码：<input type="password"></label>
       <label class="verificationCode" for="">短信验证码：<input type="text" v-model='textCode'><button @click.prevent type='button' class="getCode">获取验证码</button></label>
       <button type="button" class="register" @click.prevent='register'>找 回</button>
-      <p class="signin"><a>已有账号，立即登陆</a></p>
     </form>
 </div>
 </template>
