@@ -1,15 +1,11 @@
 <template>
 <div class="page">
-  <register></register>
+  <router-view></router-view>
 </div>
 </template>
 <script>
-import Register from '@/components/register/Register'
   export default {
     name: 'loginLayout',
-    components: {
-      Register
-    }
   }
 </script>
 <style lang="stylus" scoped>

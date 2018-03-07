@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="menu">
-    <router-link to='register'><img src='./registerLogin.jpg'></router-link>
+    <router-link :to='{name: "register"}'><img src='./registerLogin.jpg'></router-link>
     <a href=""><img src='./reserve.jpg'></a>
     <a href=""><img src='./setting.jpg'></a>
     <a href=""><img src='./policy.jpg'></a>

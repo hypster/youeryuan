@@ -1,13 +1,13 @@
 <template>
 <div class="formWrap">
-    <img class="avatar" src="./avatar.png" alt="">
-    <img class="font" src="./registerFont.png" alt="">
+    <img class="avatar" src="../register/avatar.png" alt="">
+    <img class="font" src="./font.png" alt="">
     <form action="">
       <label for="">手机号：<input v-model="mobile" type="text"></label>
       <label for="">密码：<input v-model='pass' type="password"></label>
       <label for="">确认密码：<input type="password"></label>
       <label class="verificationCode" for="">短信验证码：<input type="text" v-model='textCode'><button @click.prevent type='button' class="getCode">获取验证码</button></label>
-      <button type="button" class="register" @click.prevent='register'>注 册</button>
+      <button type="button" class="register" @click.prevent='register'>找 回</button>
       <p class="signin"><a>已有账号，立即登陆</a></p>
     </form>
 </div>

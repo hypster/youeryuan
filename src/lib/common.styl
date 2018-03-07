@@ -1,4 +1,14 @@
-form
+.formWrap
+  position relative
+  width 500px
+  padding 50px
+  box-sizing border-box
+  background-color #f4f4f4
+  position fixed
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+  text-align center 
   .avatar
     position absolute
     top 0
@@ -17,3 +27,30 @@ form
     color #fff
     font-weight 700
     box-shadow 3px 3px 5px #aaa
+  form 
+    margin-top 20px
+    text-align left 
+    display flex
+    flex-direction column
+    justify-content flex-start
+    label 
+      background-color #fff
+      padding 18px 18px 0
+      margin-bottom 20px
+    input 
+      border none
+      margin-bottom 20px
+      &:focus
+        outline none
+    label.verificationCode
+      padding-right 0
+      position relative
+      button.getCode
+        position absolute
+        right 0
+        top 0
+        height 54px
+        border none
+        background-color #7cb92f
+        color #fff
+        font-size 12px
