@@ -1,16 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/Layout'
+import MainLayout from '@/components/MainLayout'
+import RegisterLayout from '@/components/RegisterLayout'
+import LoginLayout from '@/components/LoginLayout'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'layout',
-      component: Layout
+      component: MainLayout
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterLayout
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginLayout
     }
   ]
 })
