@@ -23,8 +23,9 @@ header.page
   position absolute
   top 0 
   left 0
-  width 100%
+  right 0
   background url(bg.jpg) no-repeat
+  background-size cover
   height 155px
 .wrap
   width 1200px
