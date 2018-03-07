@@ -5,7 +5,7 @@
     <form action="">
       <label for="">手机号：<input v-model="mobile" type="text"></label>
       <label for="">密码：<input v-model='pass' type="password"></label>
-      <label for="">确认密码：<input type="password"></label>
+      <label for="">确认密码：<input v-model='confirmPass' type="password"></label>
       <label class="verificationCode" for="">短信验证码：<input type="text" v-model='textCode'><button @click.prevent type='button' class="getCode">获取验证码</button></label>
       <button type="button" class="register" @click.prevent='register'>注 册</button>
       <p class="signin"><a>已有账号，立即登陆</a></p>
@@ -28,7 +28,8 @@ export default {
   },
   methods: {
     register () {
-      if (!this.mobile.trim() == '') {
+      debugger
+      if (this.mobile.trim() == '') {
         this.errors.push('手机号码必填');
       }
       else if(!regExp.mobile.test(this.mobile)) {
@@ -54,6 +55,8 @@ export default {
         //   console.log(res);
         // })
       } else {
+        console.log(this.errors)
+        this.errors = []
         console.log(this.errors)
       }
     }
