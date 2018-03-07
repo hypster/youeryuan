@@ -8,7 +8,7 @@
       <label for="">确认密码：<input v-model='confirmPass' type="password"></label>
       <label class="verificationCode" for="">短信验证码：<input type="text" v-model='textCode'><button @click.prevent type='button' class="getCode">获取验证码</button></label>
       <button type="button" class="register" @click.prevent='register'>注 册</button>
-      <p class="signin"><a>已有账号，立即登陆</a></p>
+      <p class="signin"><router-link :to="{name: 'login'}">已有账号，立即登陆</router-link></p>
     </form>
 </div>
 </template>
@@ -69,5 +69,6 @@ export default {
     margin-top 14px
     a
       color #5e9c10
+      text-decoration none
 </style>
 
