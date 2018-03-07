@@ -1,5 +1,23 @@
 let regExp = require('@/lib/regExp');
 const verifyBase = {
+  data() {
+    return {
+      mobile: '',
+      username: '',
+      pass: '',
+      confirmPass: '',
+      verificationCode: '',
+      textCode: '',
+      
+      errors: [],
+      //toggle
+      showModal: false,
+      waiting: false,
+      //timer
+      countdown: 5,
+      imgUrl: ''
+    }
+  },
   methods: {
     getSMSCode() {
       this.waiting = true;
