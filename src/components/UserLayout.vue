@@ -2,9 +2,9 @@
 <div class="page">
   <modal v-if="showModal" @close="showModal = false;messages=[]">
     <div slot="body">
-      <ul>
+      <ol class="list">
         <li :key='m' v-for='m in messages'>{{m}}</li>
-      </ul>
+      </ol>
     </div>
     <h3 slot="header">您所填信息有误</h3>
   </modal>
@@ -46,6 +46,8 @@ import Modal from '@/components/modal/Modal'
   transition: opacity .3s ease
 .fade-enter, .fade-leave-to
   opacity: 0
+ol
+  list-style-type decimal
 </style>
 
 
