@@ -15,11 +15,18 @@ const verifyBase = {
       waiting: false,
       //timer
       countdown: 5,
-      imgUrl: ''
+      imgUrl: '',
+      disable: false
     }
   },
   methods: {
     getSMSCode() {
+      this.$http.post('public/SMSSend', {
+        mobile: this.mobile,
+        type: '1'
+      }).then(r => {
+        console.log(r)
+      })
       this.waiting = true;
       let timer = setInterval(() => {
         this.countdown--;
@@ -52,19 +59,21 @@ const verifyBase = {
       }
       if (!this.errors.length) {
         console.log('校验通过');
-        // this.$http.post('/familyUser/register', {
-        //   ename: ,
-        //   ciphertext: 
-        //   mobile,
-        //   realname
-        // }).then(res => {
-        //   console.log(res);
-        // })
+        this.$http.post('familyUser/register', {
+          smsCode: this.textCode,
+          ciphertext: this.pass,
+          mobile: this.mobile
+        }).then(({body}) => {
+          if(body.status == 'success') {
+            this.$emit('openModal', {header: '恭喜', messages: ['注册成功']});
+          } else {
+            console.log(body)
+            this.$emit('openModal', {header: '出错啦', messages: [body.message]});
+          }
+        });
       } else {
-        this.$emit('openModal', this.errors.slice());
-        console.log(this.errors)
+        this.$emit('openModal', {messages: this.errors.slice()});
         this.errors = []
-        console.log(this.errors)
       }
     },
   }

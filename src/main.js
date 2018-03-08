@@ -4,8 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
-Vue.use(VueResource)
-require('@/lib/common.styl')
+Vue.use(VueResource);
+import {baseUrl} from '@/lib/config';
+Vue.http.options.root = baseUrl;
+Vue.http.options.credentials = true;
+
+require('@/lib/common.styl');
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

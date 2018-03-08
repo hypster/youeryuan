@@ -1,12 +1,12 @@
 <template>
 <div class="page">
-  <modal v-if="showModal" @close="showModal = false;messages=[]">
+  <modal v-if="showModal" @close="onclose">
     <div slot="body">
       <ol class="list">
         <li :key='m' v-for='m in messages'>{{m}}</li>
       </ol>
     </div>
-    <h3 slot="header">您所填信息有误</h3>
+    <h3 slot="header">{{header? header: '您所填信息有误'}}</h3>
   </modal>
   <transition name="fade" mode='out-in'>
     <router-view v-on:openModal='openModal'></router-view>
@@ -20,13 +20,20 @@ import Modal from '@/components/modal/Modal'
     data() {
       return {
         showModal: false,
-        messages: []
+        messages: [],
+        header: []
       }
     },
     methods: {
-      openModal(messages) {
+      openModal(payload) {
         this.showModal = true;
-        this.messages = messages;
+        this.messages = payload.messages;
+        this.header = payload.header;
+      },
+      onclose() {
+        this.showModal = false;
+        this.messages=[];
+        this.header = ''
       }
     },
     components: {
@@ -42,10 +49,6 @@ import Modal from '@/components/modal/Modal'
   background url(register/bg.jpg) no-repeat
   background-position-y top
   background-position-x center
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .3s ease
-.fade-enter, .fade-leave-to
-  opacity: 0
 ol
   list-style-type decimal
 </style>

@@ -74,10 +74,11 @@ export default {
         }
     },
     getAuthCode() {
-      this.authCode = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521013717&di=4a6d21db1c502b6440e4e5e320e6b991&imgtype=jpg&er=1&src=http%3A%2F%2Fs4.sinaimg.cn%2Fmw690%2F003bsgbmgy6R6efoOr1c3'
-      // this.$http.get('/public/authCode').then(r => {
-      //   // this.authCode = r.url
-      // })
+      // this.authCode = 'http://10.4.4.33:81/xhzs/public/authCode'
+      this.$http.get('public/authCode', {responseType: 'blob'}).then(r => {
+        console.log(r.blob())
+        this.authCode = r.blob()
+      }).catch(e => {});
     }
   },
   mounted() {

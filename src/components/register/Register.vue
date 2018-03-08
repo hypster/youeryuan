@@ -11,7 +11,7 @@
         <button class="getCode" :class="{disabled: waiting}" :disabled='waiting' @click.prevent type='button' @click='getSMSCode'>获取验证码</button>
       </label>
       <p v-show='waiting' class="countdown">下次获取验证码等待时间剩余：{{countdown}}秒</p>
-      <button type="button" class="register" @click.prevent='register'>注 册</button>
+      <button type="button" class="register" @click.prevent='register' :class="{disabled: disable}" :disabled='disable'>注 册</button>
       <p class="signin"><router-link :to="{name: 'login'}">已有账号，立即登陆</router-link></p>
     </form>
 </div>
