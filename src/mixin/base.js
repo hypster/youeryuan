@@ -10,34 +10,38 @@ const verifyBase = {
       textCode: '',
       
       errors: [],
-      //toggle
+      
       showModal: false,
       waiting: false,
-      //timer
+      //定时
       countdown: 5,
       imgUrl: '',
       disable: false
     }
   },
   methods: {
-    getSMSCode() {
+    getSMSCode(type=1) {
+      if(!regExp.mobile.test(this.mobile)) {
+        return this.$emit('openModal', {messages: ['请先输入准确的手机号']});
+      }
       this.$http.post('public/SMSSend', {
         mobile: this.mobile,
-        type: '1'
+        type: type
       }).then(r => {
         console.log(r)
       })
       this.waiting = true;
+      let _countdown = this.countdown
       let timer = setInterval(() => {
         this.countdown--;
         if(this.countdown == 0) {
           this.waiting = false;
-          this.countdown = 60;
+          this.countdown = _countdown;
           clearInterval(timer);
         }
       }, 1000);
     },
-    register () {
+    register (api) {
       if (this.mobile.trim() == '') {
         this.errors.push('请输入手机号码');
       }
@@ -59,23 +63,20 @@ const verifyBase = {
       }
       if (!this.errors.length) {
         console.log('校验通过');
-        this.$http.post('familyUser/register', {
+
+        this.$http.post(api, {
           smsCode: this.textCode,
           ciphertext: this.pass,
           mobile: this.mobile
-        }).then(({body}) => {
-          if(body.status == 'success') {
-            this.$emit('openModal', {header: '恭喜', messages: ['注册成功']});
-          } else {
-            console.log(body)
-            this.$emit('openModal', {header: '出错啦', messages: [body.message]});
-          }
-        });
+        }).then(this.cb);
       } else {
         this.$emit('openModal', {messages: this.errors.slice()});
         this.errors = []
       }
     },
+    cb({body}) {
+        this.$emit('openModal', {messages: [body.message]});
+    }
   }
 }
 

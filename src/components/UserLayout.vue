@@ -2,11 +2,11 @@
 <div class="page">
   <modal v-if="showModal" @close="onclose">
     <div slot="body">
-      <ol class="list">
+      <ul class="list">
         <li :key='m' v-for='m in messages'>{{m}}</li>
-      </ol>
+      </ul>
     </div>
-    <h3 slot="header">{{header? header: '您所填信息有误'}}</h3>
+    <h3 slot="header">{{header? header: ''}}</h3>
   </modal>
   <transition name="fade" mode='out-in'>
     <router-view v-on:openModal='openModal'></router-view>
@@ -49,8 +49,8 @@ import Modal from '@/components/modal/Modal'
   background url(register/bg.jpg) no-repeat
   background-position-y top
   background-position-x center
-ol
-  list-style-type decimal
+ul
+  list-style-type square
 </style>
 
 
