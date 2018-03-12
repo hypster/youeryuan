@@ -2,7 +2,7 @@
 <div>
   <div class="menu">
     <router-link :to='{name: "login"}'><img src='./registerLogin.jpg'></router-link>
-    <a href=""><img src='./reserve.jpg'></a>
+    <router-link :to='{name: "admin"}'><img src='./reserve.jpg'></router-link>
     <a href=""><img src='./setting.jpg'></a>
     <a href=""><img src='./policy.jpg'></a>
   </div>

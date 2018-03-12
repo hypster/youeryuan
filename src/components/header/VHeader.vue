@@ -24,7 +24,7 @@ header.page
   top 0 
   left 0
   right 0
-  background url(bg.jpg) no-repeat
+  background url(bg.png) no-repeat
   background-size cover
   height 155px
 .wrap

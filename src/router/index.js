@@ -6,10 +6,12 @@ import Register from '@/components/register/Register'
 import Login from '@/components/login/Login'
 import Forgot from '@/components/forgot/Forgot'
 
+import AdminLayout from '@/components/AdminLayout'
+import Children from '@/components/children/Children'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -38,6 +40,21 @@ export default new Router({
         {
           path: '',
           component: Register
+        }
+      ]
+    },
+    {
+      path: '/admin',
+      component: AdminLayout,
+      children: [
+        {
+          path: 'children',
+          name: 'children',
+          component: Children
+        },
+        {
+          path: '',
+          component: Children
         }
       ]
     }

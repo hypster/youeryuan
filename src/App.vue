@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <router-view/>
     <!-- <loading v-show='isLoading'></loading> -->
     <transition name="fade">
@@ -8,7 +8,7 @@
     <transition name="fade">
       <pulse-loader class="loader" v-show="isLoading"></pulse-loader>
     </transition>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -35,6 +35,10 @@ export default {
       next(response => {
         console.log("response came");
         this.isLoading = false;
+        
+        if (response.status == 500 || response.status == 404) {
+          return Promise.resolve(response)
+        }
         return response;
       });
     });

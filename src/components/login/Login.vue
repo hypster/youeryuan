@@ -120,7 +120,7 @@ export default {
     left 100%
     margin-left 20px
   .verificationCode
-    width 200px
+    width 320px
     position relative
   .getCode
     position absolute

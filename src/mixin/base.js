@@ -68,7 +68,9 @@ const verifyBase = {
           smsCode: this.textCode,
           ciphertext: this.pass,
           mobile: this.mobile
-        }).then(this.cb);
+        }).then(this.cb).catch(e => {
+          console.log(`you got an error ${e.message}`)
+        });
       } else {
         this.$emit('openModal', {messages: this.errors.slice()});
         this.errors = []
