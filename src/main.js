@@ -8,6 +8,7 @@ Vue.use(VueResource);
 import {baseUrl} from '@/lib/config';
 Vue.http.options.root = baseUrl;
 Vue.http.options.credentials = true;
+Vue.http.options.crossOrigin = true;
 
 require('@/lib/common.styl');
 Vue.config.productionTip = false

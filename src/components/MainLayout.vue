@@ -6,8 +6,8 @@
   </div>
 </template>
 <script>
-import VHeader from '@/components/header/Header'
-import VFooter from '@/components/footer/footer'
+import VHeader from '@/components/header/VHeader'
+import VFooter from '@/components/footer/VFooter'
 import VMain from '@/components/main/Main'
   export default {
     name: 'layout', 

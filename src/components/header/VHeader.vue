@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'header',
+  name: 'v-header',
   data () {
     return {
  

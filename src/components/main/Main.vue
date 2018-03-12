@@ -9,7 +9,7 @@
 import Bulletin from '@/components/bulletin/Bulletin'
 import EntryMenu from '@/components/entryMenu/entryMenu'
   export default {
-    name: 'main',
+    name: 'v-main',
     components: {
       Bulletin,
       EntryMenu

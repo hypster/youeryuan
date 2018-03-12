@@ -6,21 +6,22 @@
       <label for="">手机号：<input v-model="mobile" type="text"></label>
       <label for="">密码：<input v-model='pass' type="password"></label>
       <label class="verificationCode" for="">验证码：<input type="text" v-model='verificationCode'>
-      <img class="authCode" :src="authCode" alt="">
-      <button @click.prevent type='button' class="getCode">刷新</button>
+      <img class="authCode" :src="baseUrl + '/public/authCode?'+ timestamp" alt="">
+      <button @click.prevent='getAuthCode' type='button' class="getCode">刷新</button>
       </label>
       <div class="forgot">
         <div class="remember">
-          <input v-model='remember' type="checkbox"><span>记住密码</span>
+          <input v-model='remember' type="checkbox"><span>记住账号</span>
         </div>
         <router-link :to="{name: 'forgot'}">忘记密码</router-link><router-link :to="{name: 'register'}" class="register" href="">立即注册</router-link>
       </div>
-      <button type="button" class="login" @click.prevent='register'>登 录</button>
+      <button type="button" class="login" @click.prevent='login'>登 录</button>
     </form>
 </div>
 </template>
 <script>
 import regExp from '@/lib/regExp'
+import {baseUrl} from '@/lib/config'
 let {setCookie, getCookie} = require('@/lib/util')
 export default {
   name: 'loginForm',
@@ -30,14 +31,16 @@ export default {
       pass: '',
       confirmPass: '',
       verificationCode: '',
+      authCode: '',
       textCode: '',
       errors: [],
-      authCode: '',
-      remember: false
+      remember: false,
+      baseUrl: baseUrl,
+      timestamp: new Date().getTime()
     }
   },
   methods: {
-    register () {
+    login () {
         if (this.mobile.trim() == '') {
           this.errors.push('请输入手机号码');
         }
@@ -55,11 +58,24 @@ export default {
         }
         if (!this.errors.length) {
           console.log('校验通过');
-          if (this.remember) {
-            setCookie('mobile', this.mobile, 7);
-          } else {
-            setCookie('mobile', '', -1);
-          }
+          this.$http.post('familyUser/login', {
+            authCode: this.verificationCode,
+            ciphertext: this.pass,
+            mobile: this.mobile
+          }).then(({body}) => {
+            if ((body.status) == 'success') {
+              if (this.remember) {
+                setCookie('mobile', this.mobile, 7);
+              } else {
+                setCookie('mobile', '', -1);
+              }
+            }
+            this.$emit('openModal', {messages: [body.message]})
+          });
+        } else {
+            this.$emit('openModal', {messages: this.errors.slice()});
+            this.errors = [];
+        }
           // this.$http.post('/familyUser/register', {
           //   ename: ,
           //   ciphertext: 
@@ -68,22 +84,19 @@ export default {
           // }).then(res => {
           //   console.log(res);
           // })
-        } else {
-          this.$emit('openModal', this.errors.slice());
-          this.errors = [];
-        }
     },
     getAuthCode() {
-      // this.authCode = 'http://10.4.4.33:81/xhzs/public/authCode'
-      this.$http.get('public/authCode', {responseType: 'blob'}).then(r => {
-        console.log(r.blob())
-        this.authCode = r.blob()
-      }).catch(e => {});
+      this.timestamp = new Date().getTime();
+    //   this.$http.get('public/authCode').then(r => {
+    //     debugger
+    //     // console.log(new Blob(r.body, {type: "image/jpeg"}))
+    //     this.authCode = URL.createObjectURL(r.body)
+    //   }).catch(e => {});
     }
   },
   mounted() {
     this.mobile = getCookie('mobile');
-    this.getAuthCode(); 
+    // this.getAuthCode(); 
   }
 }  
 </script>
