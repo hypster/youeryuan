@@ -10,6 +10,7 @@ Vue.http.options.root = baseUrl;
 // Vue.http.options.credentials = true;
 // Vue.http.options.withCredentials = true
 // Vue.http.options.crossDomain = true
+// Vue.http.options.crossOrigin = true;
 
 import 'babel-polyfill'
 //material
@@ -27,11 +28,10 @@ Vue.use(Vuetify, {
     success: colors.green.base
   }
 })
-import 'vuetify/dist/vuetify.min.css'
+// import 'vuetify/dist/vuetify.min.css'
 
-// Vue.http.options.crossOrigin = true;
 
-require('@/lib/common.styl');
+import './lib/common.styl'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

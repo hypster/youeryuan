@@ -8,6 +8,8 @@ import Forgot from '@/components/forgot/Forgot'
 
 import AdminLayout from '@/components/AdminLayout'
 import Children from '@/components/children/Children'
+
+import Add from '@/components/add/Add'
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +53,11 @@ export default new Router({
           path: 'children',
           name: 'children',
           component: Children
+        },
+        {
+          path: 'add',
+          name: 'add',
+          component: Add
         },
         {
           path: '',
