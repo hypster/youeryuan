@@ -2,17 +2,21 @@
   <v-layout justify-center column>
     <v-subheader>我的宝宝</v-subheader>
     <v-container fluid grid-list-lg>
-      <v-btn dark fab color="secondary">
+      <v-btn :to="{name: 'add'}" dark fab color="secondary">
         <v-icon>add</v-icon>
       </v-btn>
       <v-layout row wrap>
         <v-flex xs4 v-for="(message, i) in messages" :key="i">
             <v-expansion-panel popout>
-              <v-expansion-panel-content
-                hide-actions
-              >
-                <v-layout align-center column spacer slot="header">
-                  <v-flex md6>
+              <v-expansion-panel-content hide-actions>
+                <v-layout align-center column mx-0 px-0 slot="header" >
+                <v-container pa-0 fluid>
+                  <v-system-bar window >
+                    <v-spacer></v-spacer>
+                      <v-icon>remove</v-icon>
+                  </v-system-bar>
+                </v-container>
+                  <v-flex>
                     <v-avatar
                       size="140px"
                       slot="activator"
@@ -34,6 +38,7 @@
                       {{message.name}}
                     </v-chip>
                   </v-flex>
+                  <v-spacer></v-spacer>
                   <v-flex sm5 md3 hidden-xs-only>
                     <span class="grey--text" v-if="message.total">&nbsp;({{ message.total }})</span>
                   </v-flex>
@@ -58,6 +63,22 @@
                   </v-flex>
                 </v-layout>
                 <v-card>
+                  <v-tooltip bottom>
+                      <v-btn icon href="" slot="activator">
+                        <v-icon>pageview</v-icon>
+                      </v-btn>
+                      <span>查看</span>
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                      <v-btn icon href="" slot="activator">
+                        <v-icon>edit</v-icon>
+                      </v-btn>
+                      <span>修改</span>
+                    </v-tooltip>
+                  <!-- <v-toolbar class='elevation-0'>
+                      <v-toolbar-title>Login form</v-toolbar-title>
+                      
+                    </v-toolbar> -->
                   <v-divider></v-divider>
                   <div class="text-md-center">
                       <v-btn color="success" text-color='dark' >报名</v-btn>
@@ -76,9 +97,7 @@
 export default {
   name: "children",
   data: () => ({
-    messages: [],
-    lorem:
-      "Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum."
+    messages: []
   }),
   methods: {},
   mounted() {
@@ -93,3 +112,9 @@ export default {
   }
 };
 </script>
+<style lang="stylus">
+.expansion-panel__header {
+  padding: 0;
+}
+</style>
+
