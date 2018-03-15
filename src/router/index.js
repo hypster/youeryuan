@@ -51,7 +51,7 @@ export default new Router({
       children: [
         {
           path: 'children',
-          name: 'children',
+          name: 'admin',
           component: Children
         },
         {
