@@ -1,8 +1,12 @@
 <template>
   <v-layout justify-center column>
-    <v-subheader>我的宝宝</v-subheader>
-    <v-container fluid grid-list-lg>
-      <v-btn :to="{name: 'add'}" dark fab color="secondary">
+    <v-container fluid>
+      <h1 class="headline primary--text"><v-icon class="mr-1" color="primary" medium>child_care</v-icon>
+      我的宝宝</h1>
+    
+    </v-container>
+    <v-container style="position:relative" fluid grid-list-lg>
+      <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
         <v-icon>add</v-icon>
       </v-btn>
       <v-layout row wrap>

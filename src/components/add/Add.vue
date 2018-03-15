@@ -21,7 +21,7 @@ import UserForm from '@/components/userForm/UserForm'
   export default {
     data() {
       return {
-        current: '本区',
+        current: '',
         options: [
           '本区', '外省市', '其他'
         ]

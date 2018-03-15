@@ -5,7 +5,7 @@
   <v-toolbar extended class='page-header elevation-0 pb' style="height:170px" app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">徐汇区幼儿园招生系统</span>
+        <span class="secondary--text hidden-sm-and-down">徐汇区幼儿园招生系统</span>
       </v-toolbar-title>
       <v-text-field flat solo-inverted prepend-icon="search" label="Search" class="hidden-sm-and-down">
       </v-text-field>
