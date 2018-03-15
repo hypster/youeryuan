@@ -7,9 +7,14 @@
       <label for="">密码：<input v-model='pass' type="password"></label>
       <label for="">确认密码：<input v-model='confirmPass' type="password"></label>
       <label class="verificationCode" for="">短信验证码：<input type="text" v-model='textCode'>
-        <button class="getCode" :class="{disabled: waiting}" :disabled='waiting' @click.prevent type='button' @click='getSMSCode'>获取验证码</button>
+        <button style="padding:0 20px"
+           class="getCode" :class="{disabled: waiting}" 
+           :disabled='waiting' @click.prevent type='button' 
+           @click='getSMSCode(1)'>
+           {{waiting? `剩余：\n${countdown}秒` : '获取'}}
+        </button>
       </label>
-      <p v-show='waiting' class="countdown">下次获取验证码等待时间剩余：{{countdown}}秒</p>
+      <!-- <p v-show='waiting' class="countdown"></p> -->
       <button type="button" class="register" @click.prevent='register(api)' :class="{disabled: disable}" :disabled='disable'>注 册</button>
       <p class="signin"><router-link :to="{name: 'login'}">已有账号，立即登陆</router-link></p>
     </form>

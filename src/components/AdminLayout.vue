@@ -1,7 +1,7 @@
 <template>
   <div>
-  <v-navigation-drawer v-model='drawer' app>
-  </v-navigation-drawer>
+  <navigation-drawer :value="drawer" @input='oninput'>
+  </navigation-drawer>
   <v-toolbar extended class='page-header elevation-0 pb' style="height:170px" app :clipped-left="$vuetify.breakpoint.mdAndUp" fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -10,34 +10,21 @@
       <v-text-field flat solo-inverted prepend-icon="search" label="Search" class="hidden-sm-and-down">
       </v-text-field>
       <v-spacer></v-spacer>
-      <!-- <v-btn icon>
-        <v-icon>apps</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon>
-        <v-icon>notifications</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img
-            src="https://vuetifyjs.com/static/doc-images/logo.svg"
-            alt="Vuetify"
-          >
-        </v-avatar>
-      </v-btn> -->
     </v-toolbar>
-  <!-- <v-toolbar app>
-    <v-header></v-header>
-  </v-toolbar> -->
   <v-content class="mt-5">
     <v-container fluid>
-      <router-view></router-view>
+      <steppers>
+        <router-view slot="view"></router-view>
+      </steppers>
     </v-container>
   </v-content>
   <v-footer app></v-footer>
 </div>
 </template>
 <script>
+import Steppers from '@/components/steppers/Steppers'
 import VHeader from '@/components/header/VHeader'
+import NavigationDrawer from '@/components/navigationDrawer/NavigationDrawer'
   export default {
     data: () => ({
       dialog: false,
@@ -78,8 +65,15 @@ import VHeader from '@/components/header/VHeader'
     props: {
       source: String
     },
+    methods: {
+      oninput(v) {
+        this.drawer = v
+      }
+    },
     components: {
-      VHeader
+      VHeader,
+      Steppers,
+      NavigationDrawer
     }
   }
 </script>

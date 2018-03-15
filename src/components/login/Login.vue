@@ -6,13 +6,13 @@
       <label for="">手机号：<input v-model="mobile" type="text"></label>
       <label for="">密码：<input v-model='pass' type="password"></label>
       <label class="verificationCode" for="">验证码：<input type="text" v-model='verificationCode'>
-      <img class="authCode" :src="baseUrl + '/public/authCode?'+ timestamp" alt="">
-      <button @click.prevent='getAuthCode' type='button' class="getCode">刷新</button>
+      <img @click.prevent='getAuthCode' class="authCode" :src="baseUrl + '/public/authCode?'+ timestamp" alt="">
+      <!-- <button  type='button' class="getCode">刷新</button> -->
       </label>
       <div class="forgot">
-        <div class="remember">
+        <!-- <div class="remember">
           <input v-model='remember' type="checkbox"><span>记住账号</span>
-        </div>
+        </div> -->
         <router-link :to="{name: 'forgot'}">忘记密码</router-link><router-link :to="{name: 'register'}" class="register" href="">立即注册</router-link>
       </div>
       <button type="button" class="login" @click.prevent='login'>登 录</button>
@@ -70,6 +70,7 @@ export default {
                 setCookie('mobile', '', -1);
               }
             }
+            this.$store.commit({user: body.data})
             this.$emit('openModal', {messages: [body.message]})
           });
         } else {
@@ -77,8 +78,7 @@ export default {
             this.errors = [];
         }
           // this.$http.post('/familyUser/register', {
-          //   ename: ,
-          //   ciphertext: 
+          //   ciphertext,
           //   mobile,
           //   realname
           // }).then(res => {
@@ -119,6 +119,8 @@ export default {
     position absolute
     left 100%
     margin-left 20px
+    &:hover
+      cursor pointer
   .verificationCode
     width 320px
     position relative

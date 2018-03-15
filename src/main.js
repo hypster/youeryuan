@@ -7,7 +7,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource);
 import {baseUrl} from '@/lib/config';
 Vue.http.options.root = baseUrl;
-// Vue.http.options.credentials = true;
+Vue.http.options.credentials = true;
+
 // Vue.http.options.withCredentials = true
 // Vue.http.options.crossDomain = true
 // Vue.http.options.crossOrigin = true;
@@ -34,10 +35,12 @@ Vue.use(Vuetify, {
 import './lib/common.styl'
 Vue.config.productionTip = false
 
+import store from '@/store/store'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

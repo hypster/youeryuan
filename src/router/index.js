@@ -10,9 +10,10 @@ import AdminLayout from '@/components/AdminLayout'
 import Children from '@/components/children/Children'
 
 import Add from '@/components/add/Add'
+import store from '@/store/store'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'hash',
   routes: [
     {
@@ -48,6 +49,7 @@ export default new Router({
     {
       path: '/admin',
       component: AdminLayout,
+      meta: {requiresAuth: true},
       children: [
         {
           path: 'children',
@@ -67,3 +69,17 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from , next) => {
+  // debugger
+  if(to.matched.some(r => r.meta.requiresAuth)) {
+    if (store.state.user) {
+      next()
+    } else {
+      next({name: 'login'})
+    }
+  } else {
+    next()
+  }
+})
+export default router
