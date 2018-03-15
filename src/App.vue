@@ -50,7 +50,7 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Microsoft Yahei Light';
+  font-family: 'Microsoft Yahei';
 }
 .loader 
   position fixed
