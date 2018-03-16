@@ -7,7 +7,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource);
 import {baseUrl} from '@/lib/config';
 Vue.http.options.root = baseUrl;
-Vue.http.options.credentials = true;
+
+// Vue.http.options.credentials = true;
 
 // Vue.http.options.withCredentials = true
 // Vue.http.options.crossDomain = true
@@ -17,6 +18,7 @@ import 'babel-polyfill'
 //material
 import Vuetify from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
+
 
 Vue.use(Vuetify, {
   theme: {
@@ -33,6 +35,7 @@ Vue.use(Vuetify, {
 
 
 import './lib/common.styl'
+import './lib/vuetify.styl'
 Vue.config.productionTip = false
 
 import store from '@/store/store'

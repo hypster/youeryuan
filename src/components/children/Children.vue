@@ -30,7 +30,7 @@
                         alt=""
                         v-if="message.avatar"
                       >
-                      <v-icon :color="primary" v-else>{{ message.icon }}</v-icon>
+                      <v-icon color="primary" v-else>{{ message.icon }}</v-icon>
                     </v-avatar>
                   </v-flex>
                   

@@ -1,6 +1,6 @@
 .formWrap
   position relative
-  width 500px
+  width 400px
   padding 50px
   box-sizing border-box
   background-color #f4f4f4
@@ -39,11 +39,12 @@
     justify-content flex-start
     label 
       background-color #fff
-      padding 18px 18px 0
-      margin-bottom 20px
+      padding 10px 10px 0
+      margin-bottom 10px
+      font-size 14px
     input 
       border none
-      margin-bottom 20px
+      margin-bottom 10px
       &:focus
         outline none
     label.verificationCode
@@ -53,7 +54,7 @@
         position absolute
         right 0
         top 0
-        height 63px
+        height 42px
         border none
         background-color #7cb92f
         color #fff
@@ -72,10 +73,3 @@
 .fade-enter, .fade-leave-to
   opacity: 0
 
-
-$body-font-family = 'Open Sans'
-$alert-font-size = 18px
- 
-@import '~vuetify/src/stylus/main'
-// For a-la-carte
-@import '~vuetify/src/stylus/app'

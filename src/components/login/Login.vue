@@ -70,7 +70,7 @@ export default {
                 setCookie('mobile', '', -1);
               }
             }
-            this.$store.commit({user: body.data})
+            this.$store.commit('saveUser', body.data)
             this.$emit('openModal', {messages: [body.message]})
           });
         } else {
@@ -122,7 +122,7 @@ export default {
     &:hover
       cursor pointer
   .verificationCode
-    width 320px
+    width 220px
     position relative
   .getCode
     position absolute
