@@ -17,7 +17,7 @@
       </v-card-text>
     </v-card>
     </v-navigation-drawer>
-    <v-toolbar extended class='page-header elevation-0 pb' style="height:170px" app :clipped-left="$vuetify.breakpoint.mdAndUp"
+    <v-toolbar class='page-header elevation-0 pb' style="height:70px" app :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -27,7 +27,7 @@
       </v-text-field>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <v-content class="mt-5">
+    <v-content class="mt-0">
       <v-container fluid>
         <steppers>
           <router-view slot="view"></router-view>

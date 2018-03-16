@@ -6,7 +6,7 @@
     </v-layout>
     <v-layout row wrap justify-start>
       <v-flex xs12 class="pa-0">
-        <h1 class="subheader pa-0">基本信息</h1>
+        <h1 class="subheader pa-0 pl-2 primary white--text">基本信息</h1>
         <v-divider></v-divider>
       </v-flex>
       <v-layout row wrap justify-start>
@@ -41,7 +41,7 @@
 
       <v-layout row wrap justify-start>
         <v-flex xs12 class="pa-0">
-          <h1 class="subheader pa-0">户籍信息</h1>
+          <h1 class="subheader pa-0 pl-2 primary white--text">户籍信息</h1>
           <v-divider></v-divider>
         </v-flex>
         <v-layout row wrap justify-start>
@@ -75,7 +75,7 @@
       </v-layout>
       <v-layout row wrap justify-start>
         <v-flex xs12 class="pa-0">
-          <h1 class="subheader pa-0">居住信息</h1>
+          <h1 class="subheader pa-0 pl-2 primary white--text">居住信息</h1>
           <v-divider></v-divider>
         </v-flex>
         <v-layout row wrap>
@@ -98,7 +98,7 @@
       </v-layout>
       <v-layout row wrap justify-start>
         <v-flex xs12 class="pa-0">
-          <h1 class="subheader pa-0">幼儿补充信息</h1>
+          <h1 class="subheader pa-0 pl-2 primary white--text">幼儿补充信息</h1>
           <v-divider></v-divider>
         </v-flex>
         <v-layout row wrap>
@@ -136,9 +136,9 @@
         <v-flex xs12>
           <v-layout class="text-xs-left">
             <v-flex xs12 class="pa-0">
-              <h1 class="subheader pa-0">监护人信息
+              <h1 class="subheader pa-0 pl-2 primary white--text">监护人信息
                 <v-tooltip bottom>
-                <v-btn slot="activator"  color='primary' flat fab small @click='pushGuardian' :disabled="submitObj.concatlist.length > 4">
+                <v-btn slot="activator"  color='warning' flat fab small @click='pushGuardian' :disabled="submitObj.concatlist.length > 4">
                   <v-icon>add</v-icon>
                 </v-btn>
                 <span>最对填5个监护人信息</span>
