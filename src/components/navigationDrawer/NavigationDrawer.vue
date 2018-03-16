@@ -41,6 +41,9 @@
         </v-list-tile-title>
       </v-list-tile-content>
     </v-list-tile>
+    <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
+      <v-icon>add</v-icon>
+    </v-btn>
   </div>
 </v-navigation-drawer>
 </template>

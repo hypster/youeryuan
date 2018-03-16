@@ -6,9 +6,6 @@
     
     </v-container>
     <v-container style="position:relative" fluid grid-list-lg>
-      <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
-        <v-icon>add</v-icon>
-      </v-btn>
       <v-layout row wrap>
         <v-flex xs4 v-for="(message, i) in messages" :key="i">
             <v-expansion-panel popout>

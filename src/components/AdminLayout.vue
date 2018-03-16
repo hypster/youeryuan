@@ -15,16 +15,21 @@
       <v-card-text>
         {{u.age}}
       </v-card-text>
+      <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
+        <v-icon>add</v-icon>
+      </v-btn>
     </v-card>
     </v-navigation-drawer>
     <v-toolbar class='page-header elevation-0 pb' style="height:70px" app :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="secondary--text hidden-sm-and-down">徐汇区幼儿园招生系统</span>
+        <router-link :to="{name: 'layout'}">
+          <span class="secondary--text hidden-sm-and-down">徐汇区幼儿园招生系统</span>
+        </router-link>
       </v-toolbar-title>
-      <v-text-field flat solo-inverted prepend-icon="search" label="Search" class="hidden-sm-and-down">
-      </v-text-field>
+      <!--<v-text-field flat solo-inverted prepend-icon="search" label="Search" class="hidden-sm-and-down">
+      </v-text-field>-->
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content class="mt-0">
@@ -44,7 +49,7 @@ import { faCoffee } from '@fortawesome/fontawesome-free-solid'
 
   import Steppers from "@/components/steppers/Steppers";
   import VHeader from "@/components/header/VHeader";
-  import {mapState} from 'Vuex'
+  import {mapState} from 'vuex'
   // import NavigationDrawer from "@/components/navigationDrawer/NavigationDrawer";
   export default {
     data: () => ({
