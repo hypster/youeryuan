@@ -2,7 +2,7 @@
   <v-layout justify-center column>
     <v-container fluid>
       <h1 class="headline primary--text"><v-icon class="mr-1" color="primary" medium>child_care</v-icon>
-      我的宝宝</h1>
+      我的宝贝</h1>
     
     </v-container>
     <v-container style="position:relative" fluid grid-list-lg>
@@ -22,7 +22,7 @@
                 </v-container>
                   <v-flex>
                     <v-avatar
-                      size="140px"
+                      size="50px"
                       slot="activator"
                     >
                       <img
@@ -30,16 +30,16 @@
                         alt=""
                         v-if="message.avatar"
                       >
-                      <v-icon :color="primary" v-else>{{ message.icon }}</v-icon>
+                      <v-icon color="primary" v-else>{{ message.icon }}</v-icon>
                     </v-avatar>
                   </v-flex>
                   
                   <v-flex class="text-center">
-                    <v-chip outline color='primary' v-if='message.name'>
+                    <v-chip outline color='primary' v-if='message.xm'>
                             <v-avatar>
                               <v-icon color='primary'>account_circle</v-icon>
                             </v-avatar>
-                      {{message.name}}
+                      {{message.xm}}
                     </v-chip>
                   </v-flex>
                   <v-spacer></v-spacer>
@@ -105,13 +105,14 @@ export default {
   }),
   methods: {},
   mounted() {
-    this.$http.get("https://randomuser.me/api/?results=4").then(({ body }) => {
-      this.messages = body.results.map(c => {
-        return {
-          avatar: c.picture.large,
-          name: `${c.name.first} ${c.name.last}`
-        };
-      });
+    this.$http.post("student/list").then(({ body }) => {
+      
+        console.log(body)
+        this.messages = body.data.content
+        // return {
+        //   avatar: c.picture.large,
+        //   name: `${c.name.first} ${c.name.last}`
+        // };
     });
   }
 };
