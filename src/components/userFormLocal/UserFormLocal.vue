@@ -33,7 +33,7 @@
           </v-menu>
         </v-flex>
         <v-flex xs12 sm4>
-          <v-text-field  label="幼儿证件号" v-model="submitObj.sfzjh"  required :rules="[v=> !!v || '请填写幼儿证件号', testID]"></v-text-field>
+          <v-text-field  label="幼儿证件号" v-model="submitObj.sfzjh"  required :rules="[v=> !!v || '请填写幼儿证件号，类型为身份证', testID]"></v-text-field>
         </v-flex>
 
       </v-layout>
@@ -116,7 +116,7 @@
             <v-text-field label="儿童日常接送人" v-model="submitObj.rcjsr"></v-text-field>
           </v-flex>
           <v-flex xs12 sm4>
-            <v-select label="户主关系" v-model="submitObj.rcjsrgx" item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']" required></v-select>
+            <v-select label="户主关系" v-model="submitObj.rcjsrgx" item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']"></v-select>
           </v-flex>
           <v-flex xs12 sm4>
             <v-text-field label="联系电话" :rules=[testPhone] v-model="submitObj.rcjsrdh"></v-text-field>
@@ -125,7 +125,7 @@
             <v-text-field label="紧急情况通知人" v-model="submitObj.jjtzr"></v-text-field>
           </v-flex>
           <v-flex xs12 sm4>
-            <v-select label="户主关系" v-model='submitObj.jjtzrgx' item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']" required></v-select>
+            <v-select label="户主关系" v-model='submitObj.jjtzrgx' item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']"></v-select>
           </v-flex>
           <v-flex xs12 sm4>
             <v-text-field label="联系电话" :rules=[testPhone] v-model="submitObj.jjtzrdh"></v-text-field>
@@ -148,11 +148,13 @@
           </v-layout>
         </v-flex>
         <v-layout v-for='i in submitObj.concatlist.length' :key='i' row wrap align-center justify-start>
-          <v-btn color='dark' flat fab small style="transform: translateY(-10%)" @click='removeGuardian(i-1)'>
-            <v-icon fixed small>clear</v-icon>
-          </v-btn>
           <v-flex xs12 sm1>
-            <v-text-field label="称谓" v-model="submitObj.concatlist[i-1].gx"></v-text-field>
+            <v-btn color='dark' flat fab small style="transform: translateY(-10%)" @click='removeGuardian(i-1)'>
+              <v-icon fixed small>clear</v-icon>
+            </v-btn>
+          </v-flex>
+          <v-flex xs12 sm1>
+            <v-select label="称谓" v-model="submitObj.concatlist[i-1].gx" item-text="name" item-value="value" :items='familyRelations'></v-select>
           </v-flex>
           <v-flex xs12 sm1>
             <v-text-field label="姓名" v-model="submitObj.concatlist[i-1].xm"></v-text-field>
@@ -171,150 +173,40 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap justify-center>
-          <v-btn color='primary' @click='submitForm'>
-            提交
-          </v-btn>
+          <v-btn color='primary' @click='submitForm'>提交</v-btn>
         </v-layout>
       </v-layout>  
   </v-form>
+  <p style="margin-top:100px">
+    {{submitObj}}
+  </p>
   </v-flex>
 </template>
 <script>
-import {mobile} from '@/lib/regExp'
-import { IDNum } from "@/lib/regExp";
+import {studentRegisterBase} from '@/mixin/base'
+
 export default {
   data() {
     return {
-      sexes: [],
-      nationalities: [],
-      provinces: [],
-      zones: [],
-      relationWithHosts: [],
-      healths: [],
-      educations: [],
-      jw1: [],
-      jw2: [],
-      numOfGuardian: 1,
-      submitObj: {
-        xm: "",//姓名
-        xb: "", //性别,
-        concatlist: [{}]
-
-      },
-      nationality: "",
-      province: "",
-      birth: "",
-      IDNum: "",
-      zone1: "",
-      health: "",
-      relationWithHost: "",
-      moveDate: "",
-      hostAddress: "",
-      zone2: "",
-      relationWithOwner: "",
-      currentAddress: "",
-      telephone: "",
-      guardians: [{
-        relation: '',
-        name: '',
-        age: '',
-        education: '',
-        workplace: '',
-        mobile: ''
-      }],
-      menu1: false,
-      menu2: false,
-      valid: false
+      
     };
   },
-  mounted() {
-    this.$http.post('public/eXb').then(({body}) => {
-      this.sexes = body.data;
+  mounted () {
+    //证件类型默认身份证
+    this.$http.post('public/eZjlx').then(({body}) => {
+        this.submitObj.ezjlx = body.data.filter(d => d.key == 'JMSFZ')[0].value
     })
-    
-    this.$http.post("public/eMz").then(({ body }) => {
-      this.nationalities = body.data;
-    });
-    this.$http.post("public/eJd").then(({ body }) => {
-      this.zones = body.data.sort(({ name: a }, { name: b }) => {
-        return a.localeCompare(b, "zh-Hans-CN", { sensitivity: "accent" });
-      });
-    });
-    this.$http.post("public/eJtgx").then(({body}) => {
-      this.relationWithHost = body.data
-    })
-    // this.$http.post('public/eJkzk').then(({body}) => {
-    //   this.healths = body.data;
-    // })
-    this.$http.post('public/eHzgx').then(({body}) => {
-      this.relationWithHosts = body.data;
-    })
-
-    this.$http.post('public/eCity', {parent: "-1"}).then(({body}) => {
-      this.provinces = body.data;
-    })
-    // this.neighbours = [{name: '建新小区', value: 1}, {name: '李园院村', value: 2}]
-    // this.$http.post('jw/findJwByJddm',
-    //  {jddm: this.submitObj.xzzjd.length == 5? this.submitObj.xzzjd: '0'+ this.submitObj.xzzjd})
-    //  .then(({body}) => {
-    //   this.neighbours = body.data
-    // })
-
-    this.$http.post('public/eXl').then(({body}) => {
-      this.educations = body.data
-    })
-    // this.$http.post('public/hkjwh').then(({body}) => {
-    //   this.neighbours = body.data
-    // })
   },
   methods: {
-    testID(v) {
-      return IDNum.test(v) || "身份证号格式不正确";
-    },
-    save(date) {
-      this.$refs.menu.save(date);
-    },
-    pushGuardian(){
-      if(this.submitObj.concatlist.length < 5) {
-        this.submitObj.concatlist.push({
-          relation: '',
-          name: '',
-          age: '',
-          education: '',
-          workplace: '',
-          mobile: ''
-        })
-      } 
-    },
-    removeGuardian(i) {
-      if(i >= 0)
-        this.submitObj.concatlist.splice(i, 1)
-    },
-    testPhone(v) {
-      return /[^\d]/.test(v) ? '请输入数字': true
-    },
-    testMobile(v) {
-      return mobile.test(v) || '请输入有效号码'
-    },
-    changeJW(id, jw) {
-      this.$http.post('jw/findJwByJddm', 
-      {jddm: id.length == 5? id: '0' + id})
-      .then(({body}) => {
-      this[jw] = body.data
-    })
-    },
-    submitForm() {
-      this.$http.post('http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz', JSON.stringify(this.submitObj), {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).then(({body}) => {
-        console.log(body)
-        this.$store.commit('moveStage');
-      }).catch(e => console.log(e.message))
-    }
+    
   },
   watch: {
     menu1(val) {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
     }
-  }
+  },
+  props: ['xxcjlx'],
+  mixins: [studentRegisterBase]
 };
 </script>
 <style lang='stylus' scoped>
