@@ -73,7 +73,7 @@ const router = new Router({
 router.beforeEach((to, from , next) => {
   // debugger
   if(to.matched.some(r => r.meta.requiresAuth)) {
-    if (store.state.user) {
+    if (store.state.user || JSON.parse(localStorage.getItem('user'))) {
       next()
     } else {
       next({name: 'login'})

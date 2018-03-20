@@ -7,18 +7,20 @@
       </router-link>
     </v-card>
     <v-divider></v-divider>
-    <v-card v-for='(u,i) in user.content' :key='i'>
-      <v-card-text>
-        <font-awesome v-if='u.xb.value==1' icon='male'></font-awesome>
-        <font-awesome v-else icon='female'></font-awesome>
-      {{u.xm}}</v-card-text>
-      <v-card-text>
-        {{u.age}}
-      </v-card-text>
-      <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
-        <v-icon>add</v-icon>
-      </v-btn>
-    </v-card>
+    <div v-if="user">
+      <v-card v-for='(u,i) in user.content' :key='i'>
+        <v-card-text>
+          <font-awesome v-if='u.xb.value==1' icon='male'></font-awesome>
+          <font-awesome v-else icon='female'></font-awesome>
+        {{u.xm}}</v-card-text>
+        <v-card-text>
+          {{u.age}}
+        </v-card-text>
+      </v-card>
+    </div>
+    <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
+      <v-icon>add</v-icon>
+    </v-btn>
     </v-navigation-drawer>
     <v-toolbar class='page-header elevation-0 pb' style="height:70px" app :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
@@ -34,9 +36,7 @@
     </v-toolbar>
     <v-content class="mt-0">
       <v-container fluid>
-        <steppers>
-          <router-view slot="view"></router-view>
-        </steppers>
+        <router-view slot="view"></router-view>
       </v-container>
     </v-content>
     <v-footer app></v-footer>
@@ -46,10 +46,8 @@
 
 import fontAwesome from '@fortawesome/vue-fontawesome'
 import { faCoffee } from '@fortawesome/fontawesome-free-solid'
-
-  import Steppers from "@/components/steppers/Steppers";
-  import VHeader from "@/components/header/VHeader";
-  import {mapState} from 'vuex'
+import VHeader from "@/components/header/VHeader";
+import {mapState} from 'vuex'
   // import NavigationDrawer from "@/components/navigationDrawer/NavigationDrawer";
   export default {
     data: () => ({
@@ -67,7 +65,6 @@ import { faCoffee } from '@fortawesome/fontawesome-free-solid'
     },
     components: {
       VHeader,
-      Steppers,
       fontAwesome
       // NavigationDrawer
     }

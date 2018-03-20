@@ -46,13 +46,13 @@
         </v-flex>
         <v-layout row wrap justify-start>
           <v-flex xs12 sm3>
-            <v-select label="街道" v-model="submitObj.hkjz" item-text="name" item-value="value" :items="zones" :rules="[v => !!v || '请填写街道']" required></v-select>
-          </v-flex>
-          <v-flex xs12 sm3>
             <v-select label="户主关系" v-model="submitObj.hzgx" item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']" required></v-select>
           </v-flex>
           <v-flex xs12 sm3>
-            <v-select label="居委" v-model="submitObj.hkjwh" item-text="jwmc" item-value="id" :items="neighbours" :rules="[v => !!v || '请填写户主关系']" required></v-select>
+            <v-select label="街道" autocomplete @input='changeJW(submitObj.hkjz, "jw1")' v-model="submitObj.hkjz" item-text="name" item-value="value" :items="zones" :rules="[v => !!v || '请填写街道']" required></v-select>
+          </v-flex>
+          <v-flex xs12 sm3>
+            <v-select label="居委" autocomplete v-model="submitObj.hkjwh" item-text="jwmc" item-value="id" :items="jw1" :rules="[v => !!v || '请填写户主关系']" required></v-select>
           </v-flex>
           <v-flex xs12 sm3>
             <v-menu ref="menu" lazy :close-on-content-click="false" v-model="menu2" transition="scale-transition"       offset-y full-width :nudge-right="40" min-width="290px">
@@ -80,13 +80,13 @@
         </v-flex>
         <v-layout row wrap>
           <v-flex xs12 sm4>
-            <v-select label="街道" v-model="submitObj.xzzjd" item-text="name" item-value="value" :items="zones" :rules="[v => !!v || '请填写街道']" required></v-select>
+            <v-select label="房主关系" v-model="submitObj.fzgx" item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']" required></v-select>
           </v-flex>
           <v-flex xs12 sm4>
-            <v-select label="户主关系" v-model="submitObj.fzgx" item-text="name" item-value="value" :items="relationWithHosts" :rules="[v => !!v || '请填写户主关系']" required></v-select>
+            <v-select label="街道" @input="changeJW(submitObj.xzzjd, 'jw2')" autocomplete v-model="submitObj.xzzjd" item-text="name" item-value="value" :items="zones" :rules="[v => !!v || '请填写街道']" required></v-select>
           </v-flex>
           <v-flex xs12 sm4>
-            <v-select label="居委" v-model="submitObj.xzzjw" item-text="name" item-value="value" :items="nationalities" :rules="[v => !!v || '请填写户主关系']" required></v-select>
+            <v-select label="居委" autocomplete v-model="submitObj.xzzjw" item-text="jwmc" item-value="id" :items="jw2" :rules="[v => !!v || '请填写户主关系']" required></v-select>
           </v-flex>
           <v-flex xs12 sm4>
             <v-text-field label="固定电话" v-model="submitObj.lxdh" :rules="[v => !!v || '请填写固定电话', testPhone]" required></v-text-field>
@@ -161,7 +161,7 @@
             <v-text-field label="年龄" v-model="submitObj.concatlist[i-1].nl"></v-text-field>
           </v-flex>
           <v-flex xs12 sm2>
-            <v-select label="学历" v-model="submitObj.concatlist[i-1].xl" :items="educations"></v-select>
+            <v-select label="学历" v-model="submitObj.concatlist[i-1].xl" item-text='name' item-value="value" :items="educations"></v-select>
           </v-flex>
           <v-flex xs12 sm3>
             <v-text-field label="工作单位" v-model="submitObj.concatlist[i-1].gzdw"></v-text-field>
@@ -169,6 +169,11 @@
           <v-flex xs12 sm3>
             <v-text-field label="手机号码" :rules=[testMobile] v-model="submitObj.concatlist[i-1].dh"></v-text-field>
           </v-flex>
+        </v-layout>
+        <v-layout row wrap justify-center>
+          <v-btn color='primary' @click='submitForm'>
+            提交
+          </v-btn>
         </v-layout>
       </v-layout>  
   </v-form>
@@ -180,22 +185,19 @@ import { IDNum } from "@/lib/regExp";
 export default {
   data() {
     return {
-      sexes: [{
-        name: "男", value:1,
-      }, {
-         name: "女", value:2
-      }],
+      sexes: [],
       nationalities: [],
       provinces: [],
       zones: [],
       relationWithHosts: [],
       healths: [],
-      educations: ['大专','本科','研究生'],
-      neighbours: [],
+      educations: [],
+      jw1: [],
+      jw2: [],
       numOfGuardian: 1,
       submitObj: {
         xm: "",//姓名
-        xb: null, //性别,
+        xb: "", //性别,
         concatlist: [{}]
 
       },
@@ -226,14 +228,21 @@ export default {
     };
   },
   mounted() {
-    this.$http.get("public/eMz").then(({ body }) => {
+    this.$http.post('public/eXb').then(({body}) => {
+      this.sexes = body.data;
+    })
+    
+    this.$http.post("public/eMz").then(({ body }) => {
       this.nationalities = body.data;
     });
-    this.$http.get("public/eJd").then(({ body }) => {
+    this.$http.post("public/eJd").then(({ body }) => {
       this.zones = body.data.sort(({ name: a }, { name: b }) => {
         return a.localeCompare(b, "zh-Hans-CN", { sensitivity: "accent" });
       });
     });
+    this.$http.post("public/eJtgx").then(({body}) => {
+      this.relationWithHost = body.data
+    })
     // this.$http.post('public/eJkzk').then(({body}) => {
     //   this.healths = body.data;
     // })
@@ -245,8 +254,14 @@ export default {
       this.provinces = body.data;
     })
     // this.neighbours = [{name: '建新小区', value: 1}, {name: '李园院村', value: 2}]
-    this.$http.post('jw/findJwByJddm', {jddm: this.submitObj.xzzjd}).then(({body}) => {
-      this.neighbours = body.data
+    // this.$http.post('jw/findJwByJddm',
+    //  {jddm: this.submitObj.xzzjd.length == 5? this.submitObj.xzzjd: '0'+ this.submitObj.xzzjd})
+    //  .then(({body}) => {
+    //   this.neighbours = body.data
+    // })
+
+    this.$http.post('public/eXl').then(({body}) => {
+      this.educations = body.data
     })
     // this.$http.post('public/hkjwh').then(({body}) => {
     //   this.neighbours = body.data
@@ -280,6 +295,19 @@ export default {
     },
     testMobile(v) {
       return mobile.test(v) || '请输入有效号码'
+    },
+    changeJW(id, jw) {
+      this.$http.post('jw/findJwByJddm', 
+      {jddm: id.length == 5? id: '0' + id})
+      .then(({body}) => {
+      this[jw] = body.data
+    })
+    },
+    submitForm() {
+      this.$http.post('http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz', JSON.stringify(this.submitObj), {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}}).then(({body}) => {
+        console.log(body)
+        this.$store.commit('moveStage');
+      }).catch(e => console.log(e.message))
     }
   },
   watch: {

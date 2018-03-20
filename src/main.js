@@ -8,12 +8,16 @@ Vue.use(VueResource);
 import {baseUrl} from '@/lib/config';
 Vue.http.options.root = baseUrl;
 
-// Vue.http.options.credentials = true;
+Vue.http.options.credentials = true;
 
 // Vue.http.options.withCredentials = true
 // Vue.http.options.crossDomain = true
 // Vue.http.options.crossOrigin = true;
 
+// Vue.http.headers.common['Content-Type'] = 'application/json'
+// Vue.http.headers.common['Access-Control-Allow-Origin'] = '*'
+// Vue.http.headers.common['Accept'] = 'application/json, text/plain, */*'
+// Vue.http.headers.common['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, Authorization, Access-Control-Allow-Origin'
 import 'babel-polyfill'
 //material
 import Vuetify from 'vuetify'

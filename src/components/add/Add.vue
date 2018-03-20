@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout class="step1" v-if='current == ""' flex align-center justify-center>
-      <v-flex @click='onclick(o)' class="text-xs-center" xs4 v-for='o in options' :key='o'>
+      <v-flex @click='onclick(o)' class="chooseType text-xs-center" xs4 v-for='o in options' :key='o'>
         <v-card>
           <v-card-text>
             <p class="text-xs-center">{{o}}</p>
@@ -38,3 +38,8 @@ import UserForm from '@/components/userForm/UserForm'
     }
   }
 </script>
+<style lang="stylus" scoped>
+.chooseType:hover
+  cursor pointer
+</style>
+

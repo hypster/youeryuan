@@ -72,6 +72,7 @@ export default {
             }
             this.$store.commit('saveUser', body.data)
             this.$emit('openModal', {messages: [body.message]})
+            this.$router.push({name: 'admin'});
           });
         } else {
             this.$emit('openModal', {messages: this.errors.slice()});

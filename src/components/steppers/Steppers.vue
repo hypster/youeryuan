@@ -1,13 +1,13 @@
 <template>
-  <v-stepper v-model="e1">
+  <v-stepper v-model="$store.state.stage">
     <v-stepper-header>
-      <v-stepper-step step="1" :complete="e1 > 0">已登记</v-stepper-step>
+      <v-stepper-step step="1" :complete="stage>1">登记</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="2" :complete="e1 > 1">已报名</v-stepper-step>
+      <v-stepper-step step="2" :complete="stage>2">报名</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3" :complete="e1 > 2">已预约</v-stepper-step>
+      <v-stepper-step step="3" :complete="stage>3">预约</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="4" :complete="e1 > 4">已下载</v-stepper-step>
+      <v-stepper-step step="4" :complete="stage>4">下载</v-stepper-step>
     </v-stepper-header>
     <v-stepper-items>
       <slot name="view"></slot>
@@ -30,12 +30,20 @@
   </v-stepper>
 </template>
 <script>
+import {mapGetters, mapState} from 'vuex'
   export default {
     name: 'steppers',
     data() {
       return {
-        e1: -1
+        
       }
-    }
+      // return mapState('stage')
+      // return {
+      //   stage: this.$store.state.stage
+      // }
+    },
+    computed: mapState({
+      stage: state => state.stage
+    })
   }
 </script>
