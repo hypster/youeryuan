@@ -1,12 +1,6 @@
 <template>
   <div>
     <v-navigation-drawer app v-model='drawer'>
-    <v-card class="mt-5">
-      <router-link :to="{name: 'add'}">
-        <v-icon>add</v-icon>
-      </router-link>
-    </v-card>
-    <v-divider></v-divider>
     <div v-if="user">
       <v-card v-for='(u,i) in user.content' :key='i'>
         <v-card-text>
@@ -18,9 +12,12 @@
         </v-card-text>
       </v-card>
     </div>
-    <v-btn fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
-      <v-icon>add</v-icon>
-    </v-btn>
+    <v-tooltip left>
+      <v-btn slot="activator" fixed right bottom style="transform:translateY(-50%)" :to="{name: 'add'}" dark fab color="secondary">
+        <v-icon>add</v-icon>
+      </v-btn>
+      <span>请添加您的宝贝</span>
+    </v-tooltip>
     </v-navigation-drawer>
     <v-toolbar class='page-header elevation-0 pb' style="height:70px" app :clipped-left="$vuetify.breakpoint.mdAndUp"
       fixed>
@@ -34,6 +31,20 @@
       </v-text-field>-->
       <v-spacer></v-spacer>
     </v-toolbar>
+    <v-dialog v-model='dialog' :directTo='directTo' :messages='messages' max-width="500px">
+    <v-card>
+      <v-card-text>
+        <v-list>
+          <v-list-tile avatar v-for='(m, i) in messages' :key="i">
+            <v-list-tile-title>{{m}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-card-text>
+    <v-card-actions>
+        <v-btn color="primary" flat @click.stop="dialog=false" :to="directTo">确定</v-btn>
+    </v-card-actions>
+    </v-card>
+  </v-dialog>
     <v-content class="mt-0">
       <v-container fluid>
         <router-view slot="view"></router-view>
@@ -48,11 +59,14 @@ import fontAwesome from '@fortawesome/vue-fontawesome'
 import { faCoffee } from '@fortawesome/fontawesome-free-solid'
 import VHeader from "@/components/header/VHeader";
 import {mapState} from 'vuex'
+import Bus from '@/components/bus/Bus'
   // import NavigationDrawer from "@/components/navigationDrawer/NavigationDrawer";
   export default {
     data: () => ({
       dialog: false,
       drawer: null, 
+      messages: [],
+      directTo: null
     }),
     computed: mapState(['user']),
     props: {
@@ -61,12 +75,22 @@ import {mapState} from 'vuex'
     methods: {
       oninput(v) {
         this.drawer = v;
+      },
+      onOpen(payload) {
+        this.dialog = true
+        if(payload.messages)
+          this.messages = payload.messages
+        if(payload.directTo)
+          this.directTo = payload.directTo
       }
     },
     components: {
       VHeader,
-      fontAwesome
+      fontAwesome,
       // NavigationDrawer
+    },
+    created() {
+      Bus.$on('openDialog', this.onOpen);
     }
   };
 

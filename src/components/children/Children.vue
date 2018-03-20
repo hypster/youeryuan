@@ -62,6 +62,9 @@ import steppers from '@/components/steppers/Steppers'
     }),
     methods: {},
     mounted() {
+      // this.$http.get('public/getFamilyUserSession').then(({body}) => {
+      //   console.log(body)
+      // })
       this.$http.post("student/list").then(({
         body
       }) => {
