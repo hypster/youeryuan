@@ -116,10 +116,11 @@ export default {
       color #5e9c10
       margin-left 10px
   .authCode
-    width 60px
+    width 80px
     position absolute
+    right 0
+    top 10px
     left 100%
-    margin-left 20px
     &:hover
       cursor pointer
   .verificationCode

@@ -10,6 +10,7 @@ import AdminLayout from '@/components/AdminLayout'
 import Children from '@/components/children/Children'
 
 import Add from '@/components/add/Add'
+import Appo from '@/components/appointment/Appo'
 import store from '@/store/store'
 Vue.use(Router)
 
@@ -49,7 +50,7 @@ const router = new Router({
     {
       path: '/admin',
       component: AdminLayout,
-      meta: {requiresAuth: true},
+      // meta: {requiresAuth: true},
       children: [
         {
           path: 'children',
@@ -60,6 +61,11 @@ const router = new Router({
           path: 'add',
           name: 'add',
           component: Add
+        },
+        {
+          path: 'appo',
+          name: 'appo',
+          component: Appo
         },
         {
           path: '',
