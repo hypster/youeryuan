@@ -22,8 +22,8 @@ import 'babel-polyfill'
 //material
 import Vuetify from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
-
-
+import MsgBox from '@/components/alert/index';
+Vue.use(MsgBox);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.lightGreen.darken1,
