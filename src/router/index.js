@@ -13,6 +13,10 @@ import Add from '@/components/add/Add'
 import Appo from '@/components/appointment/Appo'
 import singup from '@/components/singup/singup'
 import store from '@/store/store'
+
+import EditLocal from '@/components/userFormLocalEdit/UserFormLocalEdit'
+import EditProvince from '@/components/userFormProvinceEdit/UserFormProvinceEdit'
+import EditOthers from '@/components/userFormOthersEdit/UserFormOthersEdit'
 Vue.use(Router)
 
 const router = new Router({
@@ -72,6 +76,21 @@ const router = new Router({
           path: 'singup',
           name: 'singup',
           component: singup
+        },
+        {
+          path: 'edit/local/:id',
+          name: 'editLocal',
+          component: EditLocal
+        },
+        {
+          path: 'edit/province/:id',
+          name: 'editProvince',
+          component: EditProvince
+        },
+        {
+          path: 'edit/others/:id',
+          name: 'editOthers',
+          component: EditOthers
         },
         {
           path: '',

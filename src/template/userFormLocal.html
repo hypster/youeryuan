@@ -1,5 +1,4 @@
-<template>
-  <v-flex xs12 sm10>
+<v-flex xs12 sm10>
   <v-form v-model="valid">
     <v-layout class="mb-5" row wrap justify-center>
       <h1 class="headline text-xs-center">上海市徐汇区2017年幼儿园登记表（本区户籍）</h1>
@@ -181,39 +180,3 @@
     {{submitObj}}
   </p>
   </v-flex>
-</template>
-<script>
-import {studentRegisterBase} from '@/mixin/base'
-
-export default {
-  data() {
-    return {
-      
-    };
-  },
-  props: ["api"],
-  mounted () {
-    //证件类型默认身份证
-    this.$http.post('public/eZjlx').then(({body}) => {
-        this.submitObj.ezjlx = body.data.filter(d => d.key == 'JMSFZ')[0].value
-    })
-  },
-  methods: {
-    
-  },
-  watch: {
-    menu1(val) {
-      val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
-    }
-  },
-  props: ['xxcjlx'],
-  mixins: [studentRegisterBase],
-  mounted(){
-    console.log(this.api)
-  }
-};
-</script>
-<style lang='stylus' scoped>
-
-</style>
-

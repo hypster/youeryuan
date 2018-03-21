@@ -19,8 +19,13 @@ export let $axios = axios.create({
   withCredentials: true
 })
 
+export let getAge = function (csrq) {
+  return new Date().getFullYear() - csrq.slice(0, 4)
+}
+
 export default {
   setCookie,
   getCookie,
-  $axios
+  $axios,
+  getAge
 }

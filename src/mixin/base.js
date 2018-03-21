@@ -166,6 +166,7 @@ export const studentRegisterBase = {
       valid: false
     }
   },
+  props: ['api'],
   mounted() {
     this.submitObj.xxcjlx = this.xxcjlx
 
@@ -284,7 +285,8 @@ export const studentRegisterBase = {
     },
 
     submitForm() {
-      this.$http.post('http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz',
+      // debugger
+      this.$http.post(this.api,
         JSON.stringify({
           "concatlist": [{
             "gx": "52",
