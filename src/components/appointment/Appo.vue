@@ -67,14 +67,12 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <!-- <dialog-modal :dialog="dialog" :title="title" :message="message"></dialog-modal> -->
   </v-container>
 </template>
 
 <script>
-// import dialogModal from '@/components/modal/dialogModal'
   export default {
-    name: "children",
+    name: "appo",
     data: () => ({
       dialog: true,
       message: '',
@@ -95,50 +93,28 @@
       saveSingUp (childid, schooldid, start) {
         //  预约面审时间
         //  动态加载组件
-    //     this.$Message({
-    //     type: 'info',
-    //     message: {
-    //         content: message
-    //     },
-    //     buttons: [{
-    //         label: '确定',
-    //         style: {
-    //             margin: '0',
-    //             padding: '3%',
-    //             width: '50%',
-    //             height: '40%',
-    //             boxSizing: 'border-box',
-    //             border: 'none',
-    //             borderRight: '1px solid #f8f8f8',
-    //             lineHeight: '2'
-    //         }
-    //     }, {
-    //         label: '取消',
-    //         style: {
-    //             margin: '0',
-    //             padding: '3%',
-    //             width: '50%',
-    //             height: '40%',
-    //             boxSizing: 'border-box',
-    //             border: 'none',
-    //             lineHeight: '2'
-    //         }
-    //     }],
-    //     msgFooter: {
-    //         style: {
-    //             padding: '0'
-    //         }
-    //     }
-    // });
-              // this.$Message.alert("这是一个测试")
-        // if(this.$refs['nearbyVal'].validate(true)) {
-        //   this.$emit('openModal', {
-        //     messages: '错误'
-        //   });
-        //   this.$http.post('schoolyyconf/findSchoolyyconfInfoBySchoolCode', {parent: "-1"}).then(({body}) => {
-        //     this.provinces = body.data;
-        //   })
-        // }
+        if(this.$refs['nearbyVal'].validate(true)) {
+          //  参数组合
+          let param = {
+            studentid: '6640B5151C4C6195E050A8C0080F226F',
+            schoolInfo: {
+              "schoolcode": '3101041027'
+            },
+            schoolyyconfInfo: {
+              "id": this.nearbyVal
+            }
+          }
+          this.$http.post('userbmyy/addBmyy', param).then(({body}) => {
+            console.log(body)
+            if (body.status === 'success') {
+              this.$Message.info(body['message'])
+            } else {
+              this.$Message.error(body['message'])
+            }
+          }).catch(e => {
+            this.$Message.error(e.body)
+          })
+        }
       },
       group (ary) {
         let newAry = [];
@@ -158,7 +134,7 @@
                 disabled = true
               }
             }
-            this.newAry.push({
+            newAry.push({
               name: i,
               value: item.id,
               disabled: disabled
@@ -170,17 +146,12 @@
     },
     mounted() {
       // 初始化数据
-      // this.$Message.alert({
-      //   message: {
-      //     content: '这是一个单出库'
-      //   }
-      // })
       this.$http.post('schoolyyconf/findSchoolyyconfInfoBySchoolCode', {schoolcode: "3101041027"}).then(({body}) => {
         if (body.data) {
           this.nearbyItems = this.group(body.data)
         }
       }).catch((e) => {
-        console.log('请求发生错误')
+        this.$Message.error('网络错误')
       })
     },
     components: {

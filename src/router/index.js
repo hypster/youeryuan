@@ -11,6 +11,7 @@ import Children from '@/components/children/Children'
 
 import Add from '@/components/add/Add'
 import Appo from '@/components/appointment/Appo'
+import singup from '@/components/singup/singup'
 import store from '@/store/store'
 Vue.use(Router)
 
@@ -66,6 +67,11 @@ const router = new Router({
           path: 'appo',
           name: 'appo',
           component: Appo
+        },
+        {
+          path: 'singup',
+          name: 'singup',
+          component: singup
         },
         {
           path: '',

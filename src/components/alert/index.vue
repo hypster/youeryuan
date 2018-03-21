@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <v-dialog v-model="show" max-width="290">
+    <v-dialog v-model="show" :max-width="width">
       <v-card>
         <v-alert :color="color" :type="type" value="true">
           {{ title.content || '提示' }}
@@ -30,6 +30,7 @@
     data() {
       return {
         show: false,
+        width: '420',
         type: 'info', //  值为: success, info, warning, error
         color: 'primary', // 主题颜色: primary, secondary, accent, error, warning, info, success
         title: {
