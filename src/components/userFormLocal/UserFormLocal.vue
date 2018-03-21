@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm10>
-  <v-form v-model="valid">
+  <v-form ref='form' v-model="valid">
     <v-layout class="mb-5" row wrap justify-center>
       <h1 class="headline text-xs-center">上海市徐汇区2017年幼儿园登记表（本区户籍）</h1>
     </v-layout>
@@ -173,7 +173,7 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap justify-center>
-          <v-btn color='primary' @click='submitForm'>提交</v-btn>
+          <v-btn  color='primary' @click='submitForm'>提交</v-btn>
         </v-layout>
       </v-layout>  
   </v-form>

@@ -286,36 +286,39 @@ export const studentRegisterBase = {
 
     submitForm() {
       // debugger
+      if(!this.$refs.form.validate()) {
+        return
+      }
       this.$http.post(this.api,
-        JSON.stringify({
-          "concatlist": [{
-            "gx": "52",
-            "xm": "歌",
-            "nl": "22",
-            "xl": "20",
-            "gzdw": "果然果然个",
-            "dh": "13611454546"
-          }],
-          "xxcjlx": "1",
-          "jzid": "cae678e1-2034-4e98-b47b-b9f2d8bdec30",
-          "ezjlx": "1",
-          "xm": "huang",
-          "xb": "2",
-          "mz": "2",
-          "jg": "120000",
-          "csrq": "2017-02-09",
-          "sfzjh": "310114199911300008",
-          "hzgx": "2",
-          "hkjz": "04016",
-          "hkjwh": "df2fa75d-5874-4ccb-a0fc-41d3b5fefa31",
-          "qrrq": "2018-03-06",
-          "wsshkdz": "果然果然个个人",
-          "fzgx": "5",
-          "xzzjd": "04016",
-          "xzzjw": "df2fa75d-5874-4ccb-a0fc-41d3b5fefa31",
-          "lxdh": "54545454",
-          "jzdz": "更丰富更广泛"
-        }),
+        // JSON.stringify({
+        //   "concatlist": [{
+        //     "gx": "52",
+        //     "xm": "歌",
+        //     "nl": "22",
+        //     "xl": "20",
+        //     "gzdw": "果然果然个",
+        //     "dh": "13611454546"
+        //   }],
+        //   "xxcjlx": "1",
+        //   "jzid": "cae678e1-2034-4e98-b47b-b9f2d8bdec30",
+        //   "ezjlx": "1",
+        //   "xm": "huang",
+        //   "xb": "2",
+        //   "mz": "2",
+        //   "jg": "120000",
+        //   "csrq": "2017-02-09",
+        //   "sfzjh": "310114199911300008",
+        //   "hzgx": "2",
+        //   "hkjz": "04016",
+        //   "hkjwh": "df2fa75d-5874-4ccb-a0fc-41d3b5fefa31",
+        //   "qrrq": "2018-03-06",
+        //   "wsshkdz": "果然果然个个人",
+        //   "fzgx": "5",
+        //   "xzzjd": "04016",
+        //   "xzzjw": "df2fa75d-5874-4ccb-a0fc-41d3b5fefa31",
+        //   "lxdh": "54545454",
+        //   "jzdz": "更丰富更广泛"
+        // }),
         // JSON.stringify({
         //   "jzid": "cae678e1-2034-4e98-b47b-b9f2d8bdec30",
         //   "concatlist": [{
@@ -345,7 +348,7 @@ export const studentRegisterBase = {
         //   "lxdh": "3222222222",
         //   "jzdz": "32233"
         // }),
-        //  JSON.stringify(this.submitObj), 
+         JSON.stringify(this.submitObj), 
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'

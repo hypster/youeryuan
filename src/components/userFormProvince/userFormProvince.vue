@@ -1,6 +1,6 @@
 <template>
   <v-flex xs12 sm10>
-  <v-form v-model="valid">
+  <v-form ref='form' v-model="valid">
     <v-layout class="mb-5" row wrap justify-center>
       <h1 class="headline text-xs-center">上海市徐汇区2017年幼儿园登记表（外省市）</h1>
     </v-layout>
