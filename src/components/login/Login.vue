@@ -69,10 +69,12 @@ export default {
               } else {
                 setCookie('mobile', '', -1);
               }
+              this.$store.commit('saveUser', body.data)
+              this.$router.push({name: 'admin'});
+            } else {
+              this.$emit('openModal', {messages: [body.message]})
+              this.$router.push({name: 'login'});
             }
-            this.$store.commit('saveUser', body.data)
-            this.$emit('openModal', {messages: [body.message]})
-            this.$router.push({name: 'admin'});
           });
         } else {
             this.$emit('openModal', {messages: this.errors.slice()});

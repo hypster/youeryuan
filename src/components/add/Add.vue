@@ -14,13 +14,14 @@
     </v-layout>
     <!-- -if='xxcjlx.value == "1"' -->
     <v-layout class="step1" v-else-if="xxcjlx == 1" flex align-center justify-center>
-      <user-form-local :xxcjlx="xxcjlx"></user-form-local>
+      <user-form-local api="http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz" :xxcjlx="xxcjlx"></user-form-local>
     </v-layout>
     <v-layout class="step1" v-else-if="xxcjlx == 2" flex align-center justify-center>
-      <user-form-province :xxcjlx="xxcjlx"></user-form-province>
+      <user-form-province api="http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz" :xxcjlx="xxcjlx"></user-form-province>
     </v-layout>
     <v-layout class="step1" v-else flex align-center justify-center>
-      <user-form-others :xxcjlx="xxcjlx"></user-form-others>
+      <user-form-others api="http://10.4.4.3:8080/yeyzsxjxh/register/addRegisterJz" :xxcjlx="xxcjlx"></user-form-others>
+      <!-- http://10.4.4.3:8080 -->
     </v-layout>
     
   </v-container>
@@ -28,6 +29,7 @@
 <script>
 import UserFormLocal from '@/components/userFormLocal/UserFormLocal'
 import UserFormProvince from '@/components/userFormProvince/UserFormProvince'
+import UserFormOthers from '@/components/userFormOthers/UserFormOthers'
   export default {
     data() {
       return {
@@ -41,7 +43,7 @@ import UserFormProvince from '@/components/userFormProvince/UserFormProvince'
       }
     },
     components: {
-      UserFormLocal, UserFormProvince
+      UserFormLocal, UserFormProvince, UserFormOthers
     },
     mounted (){
       this.$http.post('public/eYyxxcjlx').then(({body}) => {

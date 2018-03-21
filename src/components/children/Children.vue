@@ -8,15 +8,22 @@
     <v-container style="position:relative" fluid grid-list-lg>
       <v-layout row wrap>
         <div v-if="messages.length">
-          <steppers></steppers>
+          <steppers ></steppers>
           <v-flex xs12 v-if='messages.length' v-for="(message, i) in messages" :key="i">
             <v-layout align-start column mx-0 px-0>
               <v-flex class="text-center">
-                <v-chip outline color='primary' v-if='message.xm'>
+                <v-chip color='primary' v-if='message.xm'>
                   <v-avatar>
-                    <v-icon color='primary'>account_circle</v-icon>
+                    <v-icon>face</v-icon>
                   </v-avatar>
                   {{message.xm}}
+                </v-chip>
+                <v-chip  color='primary' v-if='message.csrq'>
+                  <v-avatar>
+                    <v-icon >cake</v-icon>
+                  </v-avatar>
+                  <span>{{getAge(message.csrq)}}</span>
+                  
                 </v-chip>
                 <v-tooltip bottom>
                   <v-btn icon href="" slot="activator">
@@ -25,7 +32,7 @@
                   <span>查看</span>
                 </v-tooltip>
                 <v-tooltip bottom>
-                  <v-btn icon href="" slot="activator">
+                  <v-btn :to="getUrl(message)" icon href="" slot="activator">
                     <v-icon>edit</v-icon>
                   </v-btn>
                   <span>修改</span>
@@ -55,17 +62,34 @@
 </template>
 <script>
 import steppers from '@/components/steppers/Steppers'
+import {getAge} from '@/lib/util'
   export default {
     name: "children",
     data: () => ({
       messages: []
     }),
-    methods: {},
+    methods: {
+      getAge,
+      getUrl(message) {
+        // debugger
+        let urlObj;
+        let type = Object.create(message.xxcjlx);
+        if(type.value == "1") {
+          urlObj = {name: 'editLocal', params: {id: message.id}}
+        } else if(type.value == "2") {
+          urlObj = {name: 'editProvince', params: {id: message.id}}
+        } else if(type.value == "3") {
+          urlObj = {name: 'editOthers', params: {id: message.id}}
+        }
+        // console.log(urlObj)
+        return urlObj;
+      }
+    },
     mounted() {
       // this.$http.get('public/getFamilyUserSession').then(({body}) => {
       //   console.log(body)
       // })
-      this.$http.post("student/list").then(({
+      this.$http.post("student/list", {}).then(({
         body
       }) => {
 

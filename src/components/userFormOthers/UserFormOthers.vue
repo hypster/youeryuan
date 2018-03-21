@@ -2,7 +2,7 @@
   <v-flex xs12 sm10>
   <v-form v-model="valid">
     <v-layout class="mb-5" row wrap justify-center>
-      <h1 class="headline text-xs-center">上海市徐汇区2017年幼儿园登记表（本区户籍）</h1>
+      <h1 class="headline text-xs-center">上海市徐汇区2017年幼儿园登记表（其他情况）</h1>
     </v-layout>
     <v-layout row wrap justify-start>
       <v-flex xs12 class="pa-0">
@@ -19,10 +19,10 @@
         <v-flex xs12 sm4>
           <v-select label="民族" v-model="submitObj.mz" item-text="name" item-value="value" :items="nationalities" :rules="[v => !!v || '请填写民族']" required></v-select>
         </v-flex>
-        <v-flex xs12 sm4>
+        <v-flex xs12 sm3>
           <v-select label="籍贯" v-model="submitObj.jg" item-text="name" item-value="value" :items="provinces" :rules="[v => !!v || '请填写籍贯']" required></v-select>
         </v-flex>
-        <v-flex xs12 sm4>
+        <v-flex xs12 sm3>
           <v-menu ref="menu" lazy :close-on-content-click="false" v-model="menu1" transition="scale-transition"       offset-y full-width :nudge-right="40" min-width="290px">
               <v-text-field slot="activator" label="出生日期" v-model="submitObj.csrq" prepend-icon="event" readonly></v-text-field>
               <v-date-picker locale="zh-cn" ref='picker' v-model="submitObj.csrq" no-title scrollable min="2000-01-01" :max="new Date().toISOString().substr(0, 10)">
@@ -32,10 +32,12 @@
               </v-date-picker>
           </v-menu>
         </v-flex>
-        <v-flex xs12 sm4>
+        <v-flex xs12 sm3>
+          <v-select label="证件种类" v-model="submitObj.sfzlx" item-text="name" item-value="value" :items="IDTypes" :rules="[v => !!v || '请选择证件类型']" required></v-select>          
+        </v-flex>
+        <v-flex xs12 sm3>
           <v-text-field  label="幼儿证件号" v-model="submitObj.sfzjh"  required :rules="[v=> !!v || '请填写幼儿证件号，类型为身份证', testID]"></v-text-field>
         </v-flex>
-
       </v-layout>
     </v-layout>
 
@@ -148,11 +150,9 @@
           </v-layout>
         </v-flex>
         <v-layout v-for='i in submitObj.concatlist.length' :key='i' row wrap align-center justify-start>
-          <v-flex xs12 sm1>
-            <v-btn color='dark' flat fab small style="transform: translateY(-10%)" @click='removeGuardian(i-1)'>
-              <v-icon fixed small>clear</v-icon>
-            </v-btn>
-          </v-flex>
+          <v-btn color='dark' flat fab small style="transform: translateY(-10%)" @click='removeGuardian(i-1)'>
+            <v-icon fixed small>clear</v-icon>
+          </v-btn>
           <v-flex xs12 sm1>
             <v-select label="称谓" v-model="submitObj.concatlist[i-1].gx" item-text="name" item-value="value" :items='familyRelations'></v-select>
           </v-flex>
@@ -162,7 +162,7 @@
           <v-flex xs12 sm1>
             <v-text-field label="年龄" v-model="submitObj.concatlist[i-1].nl"></v-text-field>
           </v-flex>
-          <v-flex xs12 sm2>
+          <v-flex xs12 sm1>
             <v-select label="学历" v-model="submitObj.concatlist[i-1].xl" item-text='name' item-value="value" :items="educations"></v-select>
           </v-flex>
           <v-flex xs12 sm3>
@@ -191,7 +191,6 @@ export default {
       
     };
   },
-  props: ["api"],
   mounted () {
     //证件类型默认身份证
     this.$http.post('public/eZjlx').then(({body}) => {
@@ -207,10 +206,7 @@ export default {
     }
   },
   props: ['xxcjlx'],
-  mixins: [studentRegisterBase],
-  mounted(){
-    console.log(this.api)
-  }
+  mixins: [studentRegisterBase]
 };
 </script>
 <style lang='stylus' scoped>
