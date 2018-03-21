@@ -166,7 +166,7 @@ export const studentRegisterBase = {
       valid: false
     }
   },
-  props: ['api'],
+  // props: ['api'],
   mounted() {
     this.submitObj.xxcjlx = this.xxcjlx
 

@@ -191,7 +191,6 @@ export default {
       
     };
   },
-  props: ["api"],
   mounted () {
     //证件类型默认身份证
     this.$http.post('public/eZjlx').then(({body}) => {
@@ -206,7 +205,7 @@ export default {
       val && this.$nextTick(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   },
-  props: ['xxcjlx'],
+  props: ['xxcjlx', "api", "childInfo"],
   mixins: [studentRegisterBase],
   mounted(){
     console.log(this.api)
