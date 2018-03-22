@@ -13,8 +13,7 @@
 </script>
 <style lang="stylus" scoped>
 .bulletin
-  height 92px
-  padding-top 40px
+  padding 2vh 0
   box-sizing border-box
   color #666
   .bulletinWrap

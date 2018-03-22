@@ -2,7 +2,7 @@
   <div class="page">
     <v-header></v-header>
     <v-main></v-main>
-    <v-footer></v-footer>
+    <!-- <v-footer></v-footer> -->
   </div>
 </template>
 <script>
@@ -22,6 +22,7 @@ import VMain from '@/components/main/Main'
 .page
   width 1200px
   margin 0 auto
+  height 100vh
 </style>
 
 

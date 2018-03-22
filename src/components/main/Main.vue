@@ -18,9 +18,9 @@ import EntryMenu from '@/components/entryMenu/entryMenu'
 </script>
 <style lang="stylus" scoped>
 .main
-  padding-top 155px
+  padding-top 16.3vh
 .banner
   background url(banner.jpg) no-repeat
-  height 417px
+  height 44vh
 </style>
 
