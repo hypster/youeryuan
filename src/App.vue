@@ -31,15 +31,28 @@ export default {
   mounted() {
     Vue.http.interceptors.push((request, next) => {
       this.isLoading = true;
-      console.log("waiting for response");
       next(response => {
-        console.log("response came");
         this.isLoading = false;
-        
-        if (response.status == 500 || response.status == 404) {
-          return Promise.resolve(response)
+        console.log(response.status)
+        if (response.status === 500) {
+          return Promise.resolve({
+            status: 'error',
+            message: '服务器链接不上'
+          });
+        } else if (response.status === 404) {
+          console.log(`${response.url}`)
+          return Promise.resolve({
+            status: 'error',
+            message: '找不到对应的接口'
+          })
+        } else if (response.status === 200) {
+          return response
+        } else {
+          return Promise.resolve({
+            status: 'error',
+            message: '系统异常, 请联系管理员'
+          })
         }
-        return response;
       });
     });
   }

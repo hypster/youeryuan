@@ -13,19 +13,7 @@ let globalOptions = {
         cssClass: '',
         style: {}
     },
-    buttons: [],
-    closeBtn: {
-        cssClass: '',
-        style: {}
-    },
-    messageBox: {
-        cssClass: '',
-        style: {}
-    },
-    msgFooter: {
-        cssClass: '',
-        style: {}
-    }
+    buttons: []
 };
 
 let instance;

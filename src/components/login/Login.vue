@@ -7,12 +7,8 @@
       <label for="">密码：<input v-model='pass' type="password"></label>
       <label class="verificationCode" for="">验证码：<input type="text" v-model='verificationCode'>
       <img @click.prevent='getAuthCode' class="authCode" :src="baseUrl + '/public/authCode?'+ timestamp" alt="">
-      <!-- <button  type='button' class="getCode">刷新</button> -->
       </label>
       <div class="forgot">
-        <!-- <div class="remember">
-          <input v-model='remember' type="checkbox"><span>记住账号</span>
-        </div> -->
         <router-link :to="{name: 'forgot'}">忘记密码</router-link><router-link :to="{name: 'register'}" class="register" href="">立即注册</router-link>
       </div>
       <button type="button" class="login" @click.prevent='login'>登 录</button>
@@ -57,49 +53,30 @@ export default {
           this.errors.push('验证码必须为4位');
         }
         if (!this.errors.length) {
-          console.log('校验通过');
           this.$http.post('familyUser/login', {
             authCode: this.verificationCode,
             ciphertext: this.pass,
             mobile: this.mobile
           }).then(({body}) => {
             if ((body.status) == 'success') {
-              if (this.remember) {
-                setCookie('mobile', this.mobile, 7);
-              } else {
-                setCookie('mobile', '', -1);
-              }
               this.$store.commit('saveUser', body.data)
               this.$router.push({name: 'admin'});
             } else {
-              this.$emit('openModal', {messages: [body.message]})
-              this.$router.push({name: 'login'});
+              this.$Message.error(body.message)
+              this.authCode = ''
             }
           });
         } else {
-            this.$emit('openModal', {messages: this.errors.slice()});
+            this.$Message.error(body.message)
             this.errors = [];
         }
-          // this.$http.post('/familyUser/register', {
-          //   ciphertext,
-          //   mobile,
-          //   realname
-          // }).then(res => {
-          //   console.log(res);
-          // })
     },
     getAuthCode() {
       this.timestamp = new Date().getTime();
-    //   this.$http.get('public/authCode').then(r => {
-    //     debugger
-    //     // console.log(new Blob(r.body, {type: "image/jpeg"}))
-    //     this.authCode = URL.createObjectURL(r.body)
-    //   }).catch(e => {});
     }
   },
   mounted() {
     this.mobile = getCookie('mobile');
-    // this.getAuthCode(); 
   }
 }  
 </script>

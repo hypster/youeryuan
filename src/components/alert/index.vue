@@ -31,6 +31,11 @@
       return {
         show: false,
         width: '420',
+<<<<<<< HEAD
+=======
+        autoClose: true,
+        interval: 1500,
+>>>>>>> f77aaf84fec5b969db70296b0c14def766f0d4c4
         type: 'info', //  值为: success, info, warning, error
         color: 'primary', // 主题颜色: primary, secondary, accent, error, warning, info, success
         title: {
@@ -49,6 +54,13 @@
     methods: {
       dismiss(event) {
         this.show = false;
+      }
+    },
+    mounted () {
+      if (this.autoClose) {
+        setTimeout(function () {
+          this.dismiss()
+        }.bind(this), this.interval)
       }
     }
   }
