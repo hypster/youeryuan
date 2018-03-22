@@ -11,8 +11,8 @@
         </v-card-text>
         <v-card-actions v-if="buttons.length > 0">
           <v-spacer></v-spacer>
-          <template v-for="item in buttons">
-                        <v-btn :color="color"
+          <template v-for="(item, i) in buttons">
+                        <v-btn :color="color" :key="i"
                             :class="item.cssClass"
                             :style="item.style" 
                             @click.native="item.action">
@@ -31,11 +31,8 @@
       return {
         show: false,
         width: '420',
-<<<<<<< HEAD
-=======
         autoClose: true,
         interval: 1500,
->>>>>>> f77aaf84fec5b969db70296b0c14def766f0d4c4
         type: 'info', //  值为: success, info, warning, error
         color: 'primary', // 主题颜色: primary, secondary, accent, error, warning, info, success
         title: {
