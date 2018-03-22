@@ -16,8 +16,7 @@
       <div class="return">
         <router-link :to="{name: 'login'}">返回登录</router-link>
       </div>
-      <!-- <p v-show='waiting' class="countdown">下次获取验证码等待时间剩余：{{countdown}}秒</p> -->
-      <button type="button" class="register" @click.prevent='register(api)'>找 回</button>
+      <button type="button" class="register" @click.prevent='forgot(api)'>找 回</button>
     </form>
 </div>
 </template>
@@ -33,7 +32,6 @@ export default {
   },
   mixins: [verifyBase],
   methods: {
-    
   }
 }  
 </script>
