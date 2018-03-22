@@ -5,7 +5,7 @@ export default new Vuex.Store({
   state: {
     stage: 1,
     // user: null,
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    user: null,
     // user: {
     //   "content": [
     //     {
